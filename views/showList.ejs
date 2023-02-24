@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/solar/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/solar/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="./../public/css/style.css">
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <div class="container text-center">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="collapse navbar-collapse" id="navbarColor02">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/addstudent">Add Student Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/show">Show Student Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/update">Update Student Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/delete">Delete Student Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <h2 style="text-align: center;">Student Verification System</h2>
+        <h3 class="p-4">Welcome Admin</h3>
+        <% if(showStudentData){%>
+            <% if( err_msg != '') { %>
+                <div class="alert alert-dismissible alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong><%=err_msg %></strong>
+                </div>
+                <% } %>
+            <form class="myborder" method="POST" action="/show">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="exampleSelect1">Branch</label>
+                        <select class="form-control" id="exampleSelect1" name="branch">
+                            <option name="none"></option>
+                            <option name="cs">Computer Science and Engineering</option>
+                            <option name="it">Information Technology</option>
+                            <option name="cv">Civil Engineering</option>
+                            <option name="el">Electrical Engineering</option>
+                        </select>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Show Student Data">
+                </fieldset>
+            </form>
+        <%}%>
+        <%if(showData){%>
+            <% if(count != 0){%>
+                <div class="alert alert-dismissible alert-success">
+                    <strong>Search Result: <%=count%></strong> 
+                  </div>
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col" colspan="3"><strong style="font-size: 25px;"><%=branch%></strong></th>
+                      </tr>
+                      <tr>
+                        <th scope="col">PRN</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% data.forEach(function(value){%>
+                            <tr>
+                                <td scope="col"><a href="/show/<%= value.prn_no%>"><%=value.prn_no%></a></td>
+                                <td scope="col"><%=value.fname%></td>
+                                <td scope="col"><%=value.lname%></td>
+                            </tr>
+                        <% }); %>
+    
+                    </tbody>
+                  </table>
+            <% }else{ %>
+                <div class="alert alert-dismissible alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>No Student For This branch</strong>
+                    <strong style="float: right;">Search Result: <%=count%></strong>
+                </div>
+            <%}%>
+            
+        <%}%>
+    </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</html>
